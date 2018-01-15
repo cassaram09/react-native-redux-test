@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { FlatList } from 'react-native';
 import ListItem from './listItem';
 
-class LibraryList extends Component<{}> {
-  componentWillMount(){
-    this.data = this.props.libraries.map( library => {
-      return Object.assign({key: library.id}, library);
+class LibraryList extends Component {
+
+  componentWillMount() {
+    this.data = this.props.libraries.map(library => {
+      return { key: library.id, library };
     });
   }
 
-  renderRow(item){
-    return <ListItem item={item.item} />;
+  renderRow({ item }) {
+    return <ListItem library={item.library} />;
   }
 
   render() {
-    return ( 
-      <View>
-        <FlatList
-          data={this.data}
-          renderItem={this.renderRow.bind(this)}
-        />
-      </View>
+    return (
+      <FlatList data={this.data} renderItem={this.renderRow.bind(this)} />
     );
   }
 }
